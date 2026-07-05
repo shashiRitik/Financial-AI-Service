@@ -115,28 +115,36 @@ Generate exactly 3 financial insights.
 
 Each insight must contain:
 
-- title
+- category
 - impact
 - reason
 
-impact must be one of:
+Category must be one of:
 
-Positive
-Negative
-Neutral
+- Savings
+- Shopping
+- Fuel
+- Income
+- Expense
+- EMI
+
+Impact must be one of:
+
+- Positive
+- Negative
+- Neutral
 
 Reason:
-- Maximum 15 words.
+- Maximum 12 words.
 - Based ONLY on the provided financial data.
 
 Example
 
 {{
-    "title":"Shopping Expense",
-    "impact":"Negative",
-    "reason":"Shopping consumes a significant share of monthly expenses."
+    "category": "Shopping",
+    "impact": "Negative",
+    "reason": "Shopping consumes a significant share of monthly expenses."
 }}
-
 ==================================================
 OUTPUT RULES
 ==================================================
@@ -174,17 +182,17 @@ RETURN EXACTLY THIS JSON
     "next_month_goal": "",
     "insights": [
         {{
-            "title": "",
+            "category": "",
             "impact": "",
             "reason": ""
         }},
         {{
-            "title": "",
+            "category": "",
             "impact": "",
             "reason": ""
         }},
         {{
-            "title": "",
+            "category": "",
             "impact": "",
             "reason": ""
         }}

@@ -12,7 +12,7 @@ class ScoreRequest(BaseModel):
 
 
 class FinancialInsight(BaseModel):
-    title: str
+    category: str
     impact: str
     reason: str
 
@@ -26,3 +26,4 @@ class ScoreResponse(BaseModel):
     recommendations: list[str]
     next_month_goal: str
     insights: list[FinancialInsight]
+    confidence: int
