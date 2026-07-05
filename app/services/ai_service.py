@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from google import genai
 from google.genai import types
 
@@ -18,8 +16,7 @@ def ask_ai(message: str) -> str:
     return response.text
 
 
-
-def analyze_score(request: ScoreRequest):
+def analyze_score(request: ScoreRequest) -> ScoreResponse:
     prompt = build_score_prompt(request)
 
     config = types.GenerateContentConfig(
@@ -35,6 +32,7 @@ def analyze_score(request: ScoreRequest):
         config=config,
     )
 
-    print(response)
+    if response.parsed is None:
+        raise ValueError("Gemini failed to generate structured response.")
 
     return response.parsed

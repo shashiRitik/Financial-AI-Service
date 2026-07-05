@@ -25,27 +25,35 @@ Fuel Expense : {fuel}
 
 Monthly EMI : {emi}
 
+Risk Rules
+
+• Score >= 80 → Low Risk
+• Score 60-79 → Medium Risk
+• Score < 60 → High Risk
+
+Summary Rules
+
+• Start the summary with exactly ONE emoji.
+• 🟢 = Low Risk
+• 🟡 = Medium Risk
+• 🔴 = High Risk
+• Maximum 25 words.
+
 Instructions
 
-1. Maximum summary length = 25 words
-2. Give exactly 3 strengths
-3. Give exactly 2 weaknesses
-4. Give exactly 3 recommendations
-5. Keep every point under 10 words
-6. Never recommend stocks
-7. Never recommend cryptocurrency
-8. Never recommend mutual funds
-9. Never give legal advice
-10. Never give tax advice
-11. Only provide general financial guidance
+1. Give exactly 3 strengths.
+2. Give exactly 2 weaknesses.
+3. Give exactly 3 recommendations.
+4. Keep every point under 10 words.
+5. Generate one measurable next month goal.
+6. Never recommend stocks.
+7. Never recommend cryptocurrency.
+8. Never recommend mutual funds.
+9. Never give legal advice.
+10. Never give tax advice.
+11. Only provide general financial guidance.
 
-Return ONLY JSON.
-
-No markdown.
-No explanation.
-No code block.
-
-Required JSON
+Return ONLY valid JSON.
 
 {{
     "financial_score": 0,
