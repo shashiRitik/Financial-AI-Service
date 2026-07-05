@@ -11,6 +11,12 @@ class ScoreRequest(BaseModel):
     emi: float
 
 
+class FinancialInsight(BaseModel):
+    title: str
+    impact: str
+    reason: str
+
+
 class ScoreResponse(BaseModel):
     financial_score: int
     risk_level: str
@@ -19,3 +25,4 @@ class ScoreResponse(BaseModel):
     weaknesses: list[str]
     recommendations: list[str]
     next_month_goal: str
+    insights: list[FinancialInsight]
