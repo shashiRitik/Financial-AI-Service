@@ -63,9 +63,30 @@ def analyze_score(request: ScoreRequest) -> ScoreResponse:
                 "Gemini failed to return structured response."
             )
 
+        # Parsed response
+        result = response.parsed
+
+        # Backend always keeps original score
+        result.financial_score = request.score
+
+        # -------------------------------------------------
+        # Backend calculated fields (Don't trust AI)
+        # -------------------------------------------------
+        if result.financial_score >= 80:
+            result.confidence = 95
+            result.risk_color = "GREEN"
+
+        elif result.financial_score >= 60:
+            result.confidence = 85
+            result.risk_color = "YELLOW"
+
+        else:
+            result.confidence = 75
+            result.risk_color = "RED"
+
         logger.info("Financial score analysis completed successfully")
 
-        return response.parsed
+        return result
 
     except Exception as e:
         logger.exception("Gemini API Error")

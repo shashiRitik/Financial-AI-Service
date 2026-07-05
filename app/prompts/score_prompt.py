@@ -117,26 +117,34 @@ Each insight must contain:
 
 - category
 - impact
+- priority
 - reason
 
 Category must be one of:
 
-- Savings
-- Shopping
-- Fuel
-- Income
-- Expense
-- EMI
+Savings
+Shopping
+Fuel
+Income
+Expense
+EMI
 
 Impact must be one of:
 
-- Positive
-- Negative
-- Neutral
+Positive
+Negative
+Neutral
+
+Priority must be one of:
+
+High
+Medium
+Low
 
 Reason:
-- Maximum 12 words.
-- Based ONLY on the provided financial data.
+Maximum 12 words.
+Use only the provided financial data.
+
 
 Example
 
@@ -145,6 +153,57 @@ Example
     "impact": "Negative",
     "reason": "Shopping consumes a significant share of monthly expenses."
 }}
+
+
+
+
+
+==================================================
+TOP PRIORITY ACTION
+==================================================
+
+Generate ONE highest priority financial action.
+
+It must contain:
+
+- title
+- reason
+- estimated_impact
+
+Rules
+
+Title:
+Maximum 5 words.
+
+Reason:
+Maximum 10 words.
+
+estimated_impact must be exactly one of:
+
+- High
+- Medium
+- Low
+
+Definitions
+
+High:
+Expected to significantly improve financial health.
+
+Medium:
+Expected to moderately improve financial health.
+
+Low:
+Expected to provide a small improvement.
+
+Never guarantee exact score improvement.
+
+Base the estimated impact ONLY on the provided financial data.
+
+==================================================
+
+
+
+
 ==================================================
 OUTPUT RULES
 ==================================================
@@ -184,18 +243,26 @@ RETURN EXACTLY THIS JSON
         {{
             "category": "",
             "impact": "",
+            "priority": "",
             "reason": ""
         }},
         {{
             "category": "",
             "impact": "",
+            "priority": "",
             "reason": ""
         }},
         {{
             "category": "",
             "impact": "",
+            "priority": "",
             "reason": ""
         }}
-    ]
+    ],
+    "top_priority": {{
+        "title": "",
+        "reason": "",
+        "estimated_impact": ""
+    }}
 }}
 """
