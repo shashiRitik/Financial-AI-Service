@@ -3,6 +3,9 @@ from app.prompts.score_prompt import SCORE_PROMPT_TEMPLATE
 from app.models.loan import LoanRequest
 from app.prompts.loan_prompt import LOAN_PROMPT_TEMPLATE
 
+from app.models.recommendation import RecommendationRequest
+from app.prompts.recommendation_prompt import RECOMMENDATION_PROMPT
+
 def build_score_prompt(request: ScoreRequest):
 
     return SCORE_PROMPT_TEMPLATE.format(
@@ -42,4 +45,17 @@ def build_loan_prompt(request: LoanRequest):
         emi_ratio=request.emi_ratio,
 
         eligible=request.eligible,
+    )
+
+
+def build_recommendation_prompt(
+    request: RecommendationRequest,
+):
+
+    return RECOMMENDATION_PROMPT.format(
+        title=request.title,
+        priority=request.priority,
+        score_improvement=request.score_improvement,
+        timeline=request.timeline,
+        business_context=request.business_context,
     )

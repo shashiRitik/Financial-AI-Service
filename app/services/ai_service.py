@@ -10,9 +10,12 @@ from app.config import GEMINI_API_KEY, MODEL_NAME
 from app.models.score import ScoreRequest, ScoreResponse
 from app.models.loan import LoanRequest, LoanResponse
 
+from app.models.recommendation import (RecommendationRequest, RecommendationResponse)
+
 from app.services.prompt_service import (
     build_score_prompt,
     build_loan_prompt,
+    build_recommendation_prompt
 )
 
 from app.utils.logger import logger
@@ -155,4 +158,58 @@ def analyze_loan(request: LoanRequest) -> LoanResponse:
 
         raise RuntimeError(
             "Loan Analysis Failed"
+        ) from e
+    
+
+# =====================================================
+# Recommendation Advisor
+# =====================================================
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_fixed(2),
+)
+def describe_recommendation(
+    request: RecommendationRequest,
+) -> RecommendationResponse:
+
+    prompt = build_recommendation_prompt(request)
+
+    config = types.GenerateContentConfig(
+        temperature=0.2,
+        response_mime_type="application/json",
+        response_schema=RecommendationResponse,
+    )
+
+    try:
+        logger.info(f"Calling Gemini Recommendation API | Model: {MODEL_NAME}")
+
+        start = time.time()
+
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt,
+            config=config,
+        )
+
+        elapsed = time.time() - start
+
+        logger.info(
+            f"Recommendation response received in {elapsed:.2f} seconds"
+        )
+
+        if response.parsed is None:
+            logger.error(response.text)
+            raise ValueError(
+                "Gemini failed to return structured recommendation."
+            )
+
+        logger.info("Recommendation description generated successfully")
+
+        return response.parsed
+
+    except Exception as e:
+        logger.exception("Gemini Recommendation API Error")
+
+        raise RuntimeError(
+            "Recommendation Description Failed"
         ) from e
